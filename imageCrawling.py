@@ -7,6 +7,7 @@ import os
 import requests
 import time
 from bing_image_downloader import downloader
+from urllib.parse import urlparse
 
 # 음식 항목 리스트
 food_items = [
@@ -65,10 +66,10 @@ for food_item in food_items:
 
     # 스크롤 다운하여 이미지 로딩
     bodyElement = driver.find_element(By.TAG_NAME, 'body')
-    time.sleep(5)
-    for i in range(10):
+    time.sleep(5)  # 페이지 로드 대기 시간
+    for i in range(10):  # 스크롤 실행 횟수
         bodyElement.send_keys(Keys.PAGE_DOWN)
-        time.sleep(2)
+        time.sleep(0.5)  # 스크롤 후 대기 시간
 
     # 이미지 URL 수집
     image_elements = driver.find_elements(By.CSS_SELECTOR, 'img.rg_i')
@@ -84,16 +85,19 @@ for food_item in food_items:
     os.makedirs(food_directory_learning, exist_ok=True)
     os.makedirs(food_directory_test, exist_ok=True)
 
-    # 이미지 다운로드 및 저장
+    # 이미지 다운로드 및 저장 (jpg, jpeg, png, gif 형식)
     for seq, url in enumerate(image_urls):
         response = requests.get(url)
         if response.status_code == 200:
-            filename_learning = os.path.join(food_directory_learning, f'{food_item}_{seq}.jpg')
-            filename_test = os.path.join(food_directory_test, f'{food_item}_{seq}.jpg')
-            with open(filename_learning, 'wb') as file_learning:
-                file_learning.write(response.content)
-            with open(filename_test, 'wb') as file_test:
-                file_test.write(response.content)
+            # 이미지 확장자 추출
+            image_extension = os.path.splitext(urlparse(url).path)[1]
+            if image_extension.lower() in ('.jpg', '.jpeg', '.png', '.gif'):
+                filename_learning = os.path.join(food_directory_learning, f'{food_item}_{seq}{image_extension}')
+                filename_test = os.path.join(food_directory_test, f'{food_item}_{seq}{image_extension}')
+                with open(filename_learning, 'wb') as file_learning:
+                    file_learning.write(response.content)
+                with open(filename_test, 'wb') as file_test:
+                    file_test.write(response.content)
 
 # 웹 드라이버 종료
 driver.quit()
