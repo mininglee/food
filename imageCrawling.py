@@ -23,7 +23,7 @@ food_items = [
     "탕수육", "유산슬", "막국수", "고로케", "만두", "오뎅탕", "계란밥", "꼬막비빔밥", "초밥", "라멘", "돈부리",
     "우동", "나베", "유부우동", "막걸리", "코다리조림", "소주", "맥주", "수육", "족발", "물회", "송편",
     "탕후루", "모듬 회", "송이버섯볶음", "주먹밥", "계란탕", "고추잡채", "기스면", "깐쇼새우", "누룽지탕", "라조기",
-    "마파두부", "마라탕", "멘보샤", "부추잡채", "오향장육", "울면", "유린기", "유산슬", "자춘걸", "크림새우",
+    "마파두부", "마라탕", "멘보샤", "부추잡채", "오향장육", "울면", "유린기", "유산슬", "크림새우",
     "해파리냉채", "팔보채", "부리또", "오므라이스", "감바스", "필라프", "라자냐", "포케", "함박스테이크", "미트볼",
     "뇨끼", "리조또", "샐러드", "타코", "베이글", "라볶이", "떡꼬치", "핫도그", "토스트", "순대", "덴뿌라",
     "카레", "볶음 우동", "카츠산도", "사케동", "오코노미야끼", "규동", "냉모밀", "후토마끼", "텐동", "오야꼬동",
@@ -42,8 +42,10 @@ food_items = [
 ]
 
 # 이미지를 저장할 기본 디렉토리 생성
-base_directory = 'C:/Users/KITCOOP/kicpython/hansik/kfood_new/learning_rgb1/image/'
-os.makedirs(base_directory, exist_ok=True)
+base_directory_learning = 'C:/Users/KITCOOP/kicpython/hansik/kfood_new/learning_rgb1/image/'
+base_directory_test = 'C:/Users/KITCOOP/kicpython/hansik/kfood_new/test_rgb1/image/'
+os.makedirs(base_directory_learning, exist_ok=True)
+os.makedirs(base_directory_test, exist_ok=True)
 
 # Chrome 웹 드라이버 설정
 chrome_options = webdriver.ChromeOptions()
@@ -77,16 +79,21 @@ for food_item in food_items:
             image_urls.append(data_src)
 
     # 음식별 디렉토리 생성
-    food_directory = os.path.join(base_directory, food_item)
-    os.makedirs(food_directory, exist_ok=True)
+    food_directory_learning = os.path.join(base_directory_learning, food_item)
+    food_directory_test = os.path.join(base_directory_test, food_item)
+    os.makedirs(food_directory_learning, exist_ok=True)
+    os.makedirs(food_directory_test, exist_ok=True)
 
     # 이미지 다운로드 및 저장
     for seq, url in enumerate(image_urls):
         response = requests.get(url)
         if response.status_code == 200:
-            filename = os.path.join(food_directory, f'{food_item}_{seq}.jpg')
-            with open(filename, 'wb') as file:
-                file.write(response.content)
+            filename_learning = os.path.join(food_directory_learning, f'{food_item}_{seq}.jpg')
+            filename_test = os.path.join(food_directory_test, f'{food_item}_{seq}.jpg')
+            with open(filename_learning, 'wb') as file_learning:
+                file_learning.write(response.content)
+            with open(filename_test, 'wb') as file_test:
+                file_test.write(response.content)
 
 # 웹 드라이버 종료
 driver.quit()
@@ -94,4 +101,5 @@ driver.quit()
 # 각 음식 항목에 대해 이미지 다운로드
 for food_item in food_items:
     query = food_item
-    downloader.download(query, limit=10, output_dir='C:/Users/KITCOOP/kicpython/hansik/kfood_new/learning_rgb1/image')
+    downloader.download(query, limit=10, output_dir='C:/Users/KITCOOP/kicpython/hansik/kfood_new/learning_rgb1/image/')
+    downloader.download(query, limit=10, output_dir='C:/Users/KITCOOP/kicpython/hansik/kfood_new/test_rgb1/image/')
