@@ -1,0 +1,30 @@
+CREATE DATABASE IF NOT EXISTS nutrition_db;
+
+USE nutrition_db;
+
+CREATE TABLE IF NOT EXISTS user_profile (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    birthdate DATE NOT NULL,
+    gender ENUM('Male', 'Female', 'Other') NOT NULL,
+    age_group ENUM('Child', 'Teen', 'Adult', 'Elderly') NOT NULL,
+    allergy_check CHAR(1) NOT NULL,
+    allergy_milk CHAR(1) NOT NULL,
+    allergy_eggs CHAR(1) NOT NULL,
+    allergy_fish CHAR(1) NOT NULL,
+    allergy_shellfish CHAR(1) NOT NULL,
+    allergy_tree_nuts CHAR(1) NOT NULL,
+    allergy_peanuts CHAR(1) NOT NULL,
+    allergy_wheat CHAR(1) NOT NULL,
+    allergy_soy CHAR(1) NOT NULL,
+    allergy_sesame CHAR(1) NOT NULL,
+    allergy_mustard CHAR(1) NOT NULL,
+    allergy_sulfites CHAR(1) NOT NULL,
+    height FLOAT NOT NULL,
+    weight FLOAT NOT NULL
+);
+
+ALTER TABLE user_profile ADD INDEX idx_username (username);
+ALTER TABLE user_profile ADD INDEX idx_email (email);
