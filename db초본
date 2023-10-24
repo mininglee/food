@@ -1,7 +1,10 @@
+-- 데이터베이스 생성
 CREATE DATABASE IF NOT EXISTS nutrition_db;
 
+-- 데이터베이스 선택
 USE nutrition_db;
 
+-- 사용자 프로필 테이블 생성
 CREATE TABLE IF NOT EXISTS user_profile (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
@@ -23,8 +26,11 @@ CREATE TABLE IF NOT EXISTS user_profile (
     allergy_mustard CHAR(1) NOT NULL,
     allergy_sulfites CHAR(1) NOT NULL,
     height FLOAT NOT NULL,
-    weight FLOAT NOT NULL
+    weight FLOAT NOT NULL,
+    pregnancy_status ENUM('Pregnant', 'Not Pregnant', 'Prefer Not to Say') NOT NULL
 );
 
+-- 인덱스 추가
 ALTER TABLE user_profile ADD INDEX idx_username (username);
 ALTER TABLE user_profile ADD INDEX idx_email (email);
+
