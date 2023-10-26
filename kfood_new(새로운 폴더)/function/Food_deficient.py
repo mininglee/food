@@ -19,8 +19,7 @@ class FoodLog:
             print(f"칼로리: {entry['calories']} kcal")
             print(f"단백질: {entry['protein']} g")
             print(f"탄수화물: {entry['carbs']} g")
-            print(f"지방: {entry['fat']} g")
-            print(f"나트륨: {entry['sodium']} mg")
+            print(f"식이섬유: {entry['fibre']} g")
             print("-" * 30)
 
     def calculate_shortage(self, daily_intake):
@@ -53,8 +52,7 @@ def main():
             calories = float(input("칼로리: "))
             protein = float(input("단백질 (g): "))
             carbs = float(input("탄수화물 (g): "))
-            fat = float(input("지방 (g): "))
-            sodium = float(input("나트륨 (mg): "))
+            fibre = float(input("식이섬유 (g): "))
             food_logger.record_food(food_name, calories, protein, carbs, fat, sodium)
             print("음식이 기록되었습니다.")
         elif choice == '2':
@@ -64,8 +62,7 @@ def main():
                 "calories": float(input("하루 권장 칼로리 (kcal): ")),
                 "protein": float(input("하루 권장 단백질 (g): ")),
                 "carbs": float(input("하루 권장 탄수화물 (g): ")),
-                "fat": float(input("하루 권장 지방 (g): ")),
-                "sodium": float(input("하루 권장 나트륨 (mg): "))
+                "fibre": float(input("하루 권장 식이섬유 (g): "))
             }
             shortage = food_logger.calculate_shortage(daily_intake)
             print("부족한 영양소:")
