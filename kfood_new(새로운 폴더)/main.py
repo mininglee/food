@@ -1,7 +1,8 @@
 import os
 import sys
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_from_directory, flash, redirect, url_for
 from image_script import load_model, predict_image
+from flask import current_app as app
 
 sys.setrecursionlimit(10**8)
 
@@ -54,29 +55,4 @@ class_labels = [
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-img_height = 50
-img_width = 50
-
-@app.route('/uploads', methods=['POST'])
-def upload_file():
-    if 'file' not in request.files:
-        return "No file part"
-    file = request.files['file']
-    if file.filename == '':
-        return "No selected file"
-    if file and allowed_file(file.filename):
-        filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-        file.save(filename)
-        predicted_class, class_name, probability = predict_image(model, filename, img_height, img_width, class_labels)
-        return render_template('index.html', prediction_result=f"Predicted class: {class_name}, Probability: {probability}")
-
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
-if __name__ == '__main':
-    app.run(debug=True, port=8080)
+app.run(host="127.0.0.1", port=5000)
