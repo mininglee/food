@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>음식 추천 앱</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+        }
+
+        .ad-section {
+            height: 10%;
+            background-color: #4287f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ad-button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .nutrition-info {
+            height: 10%;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+
+        .nutrient {
+            background-color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .camera-button {
+            height: 35%;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .camera-button button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .camera-button img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .menu-recommendations {
+            height: 25%;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .menu-slider {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 300px;
+            margin: 10px 0;
+        }
+
+        .menu-slider .menu-button {
+            display: inline-block;
+            width: 300px;
+            transition: transform 0.3s ease;
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .menu-slider.translate {
+            transform: translateX(-300px);
+        }
+
+        .menu-navigation {
+            display: flex;
+            justify-content: center;
+        }
+
+        .menu-navigation button {
+            background-color: #4287f5;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .weekly-nutrition {
+            height: 20%;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .day-button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .camera-button button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            background-image: linear-gradient(to bottom, #4287f5, #2a5db0); /* 그라데이션 배경 */
+            color: #fff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.3s ease; /* 이펙트를 부드럽게 적용하기 위한 트랜지션 */
+        
+        }
+        
+        .camera-button button:active,
+        .camera-button button:focus {
+            background-image: linear-gradient(to bottom, #2a5db0, #4287f5); /* 클릭 또는 포커스 시의 그라데이션 색상 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ad-section">
+        <button class="ad-button" id="ad-button">광고 버튼</button>
+    </div>
+
+    <div class="nutrition-info">
+        <button class="nutrient-button" id="calories">칼로리</button>
+        <button class="nutrient-button" id="carbohydrates">탄수화물</button>
+        <button class="nutrient-button" id="protein">단백질</button>
+        <button class="nutrient-button" id="fat">지방</button>
+    </div>
+    
+
+    <div class="camera-button">
+        <button>
+            <img src="camera_image.jpg" alt="카메라">
+        </button>
+    </div>
+
+    <div class="menu-recommendations">
+        <div class="menu-slider">
+            <button class="menu-button" id="menu1">메뉴 1</button>
+            <button class="menu-button" id="menu2">메뉴 2</button>
+            <button class="menu-button" id="menu3">메뉴 3</button>
+            <button class="menu-button" id="menu4">메뉴 4</button>
+            <button class="menu-button" id="menu5">메뉴 5</button>
+            <button class="menu-button" id="menu6">메뉴 6</button>
+            <button class="menu-button" id="menu7">메뉴 7</button>
+            <button class="menu-button" id="menu8">메뉴 8</button>
+            <button class="menu-button" id="menu9">메뉴 9</button>
+            <button class="menu-button" id="menu10">메뉴 10</button>
+        </div>
+        <div class="menu-navigation">
+            <button id="prev-button">이전</button>
+            <button id="next-button">다음</button>
+        </div>
+    </div>
+
+    <div class="weekly-nutrition">
+        <button class="day-button" id="day1"><span>일</span></button>
+        <button class="day-button" id="day2"><span>월</span></button>
+        <button class="day-button" id="day3"><span>화</span></button>
+        <button class="day-button" id="day4"><span>수</span></button>
+        <button class="day-button" id="day5"><span>목</span></button>
+        <button class="day-button" id="day6"><span>금</span></button>
+        <button class="day-button" id="day7"><span>토</span></button>
+    </div>
+
+    <script>
+        document.getElementById('ad-button').addEventListener('click', function () {
+            // 광고 버튼 클릭 시 수행할 작업
+        });
+
+        const menuButtons = document.querySelectorAll('.menu-button');
+        let currentIndex = 0;
+
+        function showMenu(index) {
+            menuButtons.forEach((button, i) => {
+                button.style.display = i === index ? 'inline' : 'none';
+            });
+        }
+
+        document.getElementById('prev-button').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + menuButtons.length) % menuButtons.length;
+            showMenu(currentIndex);
+        });
+
+        document.getElementById('next-button').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % menuButtons.length;
+            showMenu(currentIndex);
+        });
+
+        showMenu(currentIndex);
+        
+    </script>
+</body>
+
+</html>
