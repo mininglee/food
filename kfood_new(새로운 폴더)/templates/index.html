@@ -41,10 +41,10 @@
             align-items: center;
         }
 
+
         .nutrient {
             background-color: #333;
-            margin: 0 50px;
-            padding: 40px 7.5%;
+            padding: 5px 10px;
             border-radius: 5px;
             font-weight: bold;
             color: #fff;
@@ -56,6 +56,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        .camera-button button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
         }
 
         .camera-button img {
@@ -120,13 +126,34 @@
             background-color: #333;
             color: #fff;
             border: none;
-            border-radius: 5px;
-            width: 130px;
-            height: 40px;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
+        }
+
+        .camera-button button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            background-image: linear-gradient(to bottom, #4287f5, #2a5db0); /* 그라데이션 배경 */
+            color: #fff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.3s ease; /* 이펙트를 부드럽게 적용하기 위한 트랜지션 */
+        
+        }
+        
+        .camera-button button:active,
+        .camera-button button:focus {
+            background-image: linear-gradient(to bottom, #2a5db0, #4287f5); /* 클릭 또는 포커스 시의 그라데이션 색상 */
         }
     </style>
 </head>
@@ -137,28 +164,31 @@
     </div>
 
     <div class="nutrition-info">
-        <div class="nutrient" id="calories">칼로리</div>
-        <div class="nutrient" id="carbohydrates">탄수화물</div>
-        <div class="nutrient" id="protein">단백질</div>
-        <div class="nutrient" id="fat">지방</div>
+        <button class="nutrient-button" id="calories">칼로리</button>
+        <button class="nutrient-button" id="carbohydrates">탄수화물</button>
+        <button class="nutrient-button" id="protein">단백질</button>
+        <button class="nutrient-button" id="fat">지방</button>
     </div>
+    
 
     <div class="camera-button">
-        <img src="camera_image.jpg" alt="카메라">
+        <button>
+            <img src="camera_image.jpg" alt="카메라">
+        </button>
     </div>
 
-    <div class "menu-recommendations">
+    <div class="menu-recommendations">
         <div class="menu-slider">
-            <span class="menu-button" id="menu1">메뉴 1 내용</span>
-            <span class="menu-button" id="menu2">메뉴 2 내용</span>
-            <span class="menu-button" id="menu3">메뉴 3 내용</span>
-            <span class="menu-button" id="menu4">메뉴 4 내용</span>
-            <span class="menu-button" id="menu5">메뉴 5 내용</span>
-            <span class="menu-button" id="menu6">메뉴 6 내용</span>
-            <span class "menu-button" id="menu7">메뉴 7 내용</span>
-            <span class="menu-button" id="menu8">메뉴 8 내용</span>
-            <span class="menu-button" id="menu9">메뉴 9 내용</span>
-            <span class="menu-button" id="menu10">메뉴 10 내용</span>
+            <button class="menu-button" id="menu1">메뉴 1</button>
+            <button class="menu-button" id="menu2">메뉴 2</button>
+            <button class="menu-button" id="menu3">메뉴 3</button>
+            <button class="menu-button" id="menu4">메뉴 4</button>
+            <button class="menu-button" id="menu5">메뉴 5</button>
+            <button class="menu-button" id="menu6">메뉴 6</button>
+            <button class="menu-button" id="menu7">메뉴 7</button>
+            <button class="menu-button" id="menu8">메뉴 8</button>
+            <button class="menu-button" id="menu9">메뉴 9</button>
+            <button class="menu-button" id="menu10">메뉴 10</button>
         </div>
         <div class="menu-navigation">
             <button id="prev-button">이전</button>
@@ -203,7 +233,7 @@
         showMenu(currentIndex);
         
     </script>
-
 </body>
 
 </html>
+
