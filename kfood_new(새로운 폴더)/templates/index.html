@@ -1,15 +1,209 @@
-<!-- templates/index.html -->
-
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Image Classification</title>
+    <meta charset="UTF-8">
+    <title>음식 추천 앱</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+        }
+
+        .ad-section {
+            height: 10%;
+            background-color: #4287f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ad-button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .nutrition-info {
+            height: 10%;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nutrient {
+            background-color: #333;
+            margin: 0 50px;
+            padding: 40px 7.5%;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .camera-button {
+            height: 35%;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .camera-button img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .menu-recommendations {
+            height: 25%;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .menu-slider {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 300px;
+            margin: 10px 0;
+        }
+
+        .menu-slider .menu-button {
+            display: inline-block;
+            width: 300px;
+            transition: transform 0.3s ease;
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .menu-slider.translate {
+            transform: translateX(-300px);
+        }
+
+        .menu-navigation {
+            display: flex;
+            justify-content: center;
+        }
+
+        .menu-navigation button {
+            background-color: #4287f5;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .weekly-nutrition {
+            height: 20%;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .day-button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            width: 130px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Image Classification</h1>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload and Analyze">
-    </form>
+    <div class="ad-section">
+        <button class="ad-button" id="ad-button">광고 버튼</button>
+    </div>
+
+    <div class="nutrition-info">
+        <div class="nutrient" id="calories">칼로리</div>
+        <div class="nutrient" id="carbohydrates">탄수화물</div>
+        <div class="nutrient" id="protein">단백질</div>
+        <div class="nutrient" id="fat">지방</div>
+    </div>
+
+    <div class="camera-button">
+        <img src="camera_image.jpg" alt="카메라">
+    </div>
+
+    <div class "menu-recommendations">
+        <div class="menu-slider">
+            <span class="menu-button" id="menu1">메뉴 1 내용</span>
+            <span class="menu-button" id="menu2">메뉴 2 내용</span>
+            <span class="menu-button" id="menu3">메뉴 3 내용</span>
+            <span class="menu-button" id="menu4">메뉴 4 내용</span>
+            <span class="menu-button" id="menu5">메뉴 5 내용</span>
+            <span class="menu-button" id="menu6">메뉴 6 내용</span>
+            <span class "menu-button" id="menu7">메뉴 7 내용</span>
+            <span class="menu-button" id="menu8">메뉴 8 내용</span>
+            <span class="menu-button" id="menu9">메뉴 9 내용</span>
+            <span class="menu-button" id="menu10">메뉴 10 내용</span>
+        </div>
+        <div class="menu-navigation">
+            <button id="prev-button">이전</button>
+            <button id="next-button">다음</button>
+        </div>
+    </div>
+
+    <div class="weekly-nutrition">
+        <button class="day-button" id="day1"><span>일</span></button>
+        <button class="day-button" id="day2"><span>월</span></button>
+        <button class="day-button" id="day3"><span>화</span></button>
+        <button class="day-button" id="day4"><span>수</span></button>
+        <button class="day-button" id="day5"><span>목</span></button>
+        <button class="day-button" id="day6"><span>금</span></button>
+        <button class="day-button" id="day7"><span>토</span></button>
+    </div>
+
+    <script>
+        document.getElementById('ad-button').addEventListener('click', function () {
+            // 광고 버튼 클릭 시 수행할 작업
+        });
+
+        const menuButtons = document.querySelectorAll('.menu-button');
+        let currentIndex = 0;
+
+        function showMenu(index) {
+            menuButtons.forEach((button, i) => {
+                button.style.display = i === index ? 'inline' : 'none';
+            });
+        }
+
+        document.getElementById('prev-button').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + menuButtons.length) % menuButtons.length;
+            showMenu(currentIndex);
+        });
+
+        document.getElementById('next-button').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % menuButtons.length;
+            showMenu(currentIndex);
+        });
+
+        showMenu(currentIndex);
+        
+    </script>
+
 </body>
+
 </html>
