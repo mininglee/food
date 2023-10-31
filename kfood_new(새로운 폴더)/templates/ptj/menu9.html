@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>음식 정보</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .food-image {
+            height: 50%;
+            overflow: hidden;
+        }
+        
+        .food-image img {
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .nutrition-info {
+            height: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .nutrient {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="food-image">
+        <img id="food-photo" src="food1.jpg" alt="음식 사진">
+    </div>
+    
+    <div class="nutrition-info">
+        <div class="nutrient" id="calories">칼로리: <span id="calories-value">0 kcal</span></div>
+        <div class="nutrient" id="carbohydrates">탄수화물: <span id="carbohydrates-value">0 g</span></div>
+        <div class="nutrient" id="fat">지방: <span id="fat-value">0 g</span></div>
+        <div class="nutrient" id="sodium">나트륨: <span id="sodium-value">0 mg</span></div>
+        <div class="nutrient" id="sugar">당: <span id="sugar-value">0 g</span></div>
+        <div class="nutrient" id="saturated-fat">포화지방: <span id="saturated-fat-value">0 g</span></div>
+        <div class="nutrient" id="cholesterol">콜레스테롤: <span id="cholesterol-value">0 mg</span></div>
+        <div class="nutrient" id="fiber">식이섬유: <span id="fiber-value">0 g</span></div>
+    </div>
+
+    <script>
+        const foodPhotos = [
+            "food1.jpg", "food2.jpg", "food3.jpg", "food4.jpg", "food5.jpg"
+        ];
+        let currentPhotoIndex = 0;
+        const foodPhotoElement = document.getElementById("food-photo");
+
+        function showNextPhoto() {
+            currentPhotoIndex = (currentPhotoIndex + 1) % foodPhotos.length;
+            foodPhotoElement.src = foodPhotos[currentPhotoIndex];
+        }
+
+        function showPreviousPhoto() {
+            currentPhotoIndex = (currentPhotoIndex - 1 + foodPhotos.length) % foodPhotos.length;
+            foodPhotoElement.src = foodPhotos[currentPhotoIndex];
+        }
+
+        // 초기 사진 표시
+        foodPhotoElement.src = foodPhotos[currentPhotoIndex];
+
+        // 영양 정보 업데이트 함수
+        function updateNutrientInfo() {
+            const nutrients = {
+                calories: "200 kcal",
+                carbohydrates: "20 g",
+                fat: "10 g",
+                sodium: "300 mg",
+                sugar: "5 g",
+                "saturated-fat": "2 g",
+                cholesterol: "30 mg",
+                fiber: "3 g"
+            };
+            
+            for (const nutrient in nutrients) {
+                document.getElementById(`${nutrient}-value`).textContent = nutrients[nutrient];
+            }
+        }
+
+        // 초기 영양 정보 설정
+        updateNutrientInfo();
+    </script>
+</body>
+</html>
